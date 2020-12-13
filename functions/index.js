@@ -8,6 +8,21 @@ const db = admin.firestore();
 
 const app = express()
 
+app.get('/:id', (req, res) => {
+    db.collection('urls').doc(req.params.id).get()
+    .then((doc)=>{
+        // eslint-disable-next-line promise/always-return
+        if (doc.exists) {
+            res.status(301).redirect(doc.data().url)
+        }
+        else{
+            res.status(404).send("URL Not Found at /")
+        }
+    })
+    .catch((err)=>console.log(err))
+
+})
+
 app.post('/api', (req, res) => {
     var uid = shortid.generate()
     const myData = {
