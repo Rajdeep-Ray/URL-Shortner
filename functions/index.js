@@ -32,7 +32,6 @@ app.post('/api', (req, res) => {
     // eslint-disable-next-line promise/always-return
     db.collection('urls').doc(uid).set(myData).then(() => {
         res.json(myData);
-
     }).catch((err) => console.log(err))
 
 })
